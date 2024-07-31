@@ -49,6 +49,7 @@ import {
 import { version } from './package.json';
 import { WarpTransactionExecutor } from './transactions/warp-transaction-executor';
 import { JitoTransactionExecutor } from './transactions/jito-rpc-transaction-executor';
+import { sendTelegramMessage } from './helpers/telegram';
 
 const connection = new Connection(RPC_ENDPOINT, {
   wsEndpoint: RPC_WEBSOCKET_ENDPOINT,
@@ -56,6 +57,7 @@ const connection = new Connection(RPC_ENDPOINT, {
 });
 
 function printDetails(wallet: Keypair, quoteToken: Token, bot: Bot) {
+  
   logger.info(`  
                                         ..   :-===++++-     
                                 .-==+++++++- =+++++++++-    
@@ -75,6 +77,11 @@ function printDetails(wallet: Keypair, quoteToken: Token, bot: Bot) {
   `);
 
   const botConfig = bot.config;
+
+  sendTelegramMessage(`zapinam
+    vklad: ${botConfig.quoteAmount.toFixed()} ${botConfig.quoteToken.name}
+    loss/profit: ${botConfig.takeProfit}% profit || ${botConfig.stopLoss}% loss
+    `)
 
   logger.info('------- CONFIGURATION START -------');
   logger.info(`Wallet: ${wallet.publicKey.toString()}`);

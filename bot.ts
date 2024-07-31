@@ -23,6 +23,7 @@ import { Mutex } from 'async-mutex';
 import BN from 'bn.js';
 import { WarpTransactionExecutor } from './transactions/warp-transaction-executor';
 import { JitoTransactionExecutor } from './transactions/jito-rpc-transaction-executor';
+import { sendTelegramMessage } from './helpers/telegram';
 
 export interface BotConfig {
   wallet: Keypair;
@@ -171,7 +172,7 @@ export class Bot {
               },
               `Confirmed buy tx`,
             );
-
+            sendTelegramMessage(`kupuju hovna: https://dexscreener.com/solana/${poolKeys.baseMint.toString()}?maker=${this.config.wallet.publicKey}`)
             break;
           }
 
@@ -258,6 +259,7 @@ export class Bot {
               },
               `Confirmed sell tx`,
             );
+            sendTelegramMessage(`https://dexscreener.com/solana/${rawAccount.mint.toString()}?maker=${this.config.wallet.publicKey}`)
             break;
           }
 

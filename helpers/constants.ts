@@ -6,6 +6,7 @@ import { logger } from './logger';
 dotenv.config();
 
 const retrieveEnvVariable = (variableName: string, logger: Logger) => {
+  
   const variable = process.env[variableName] || '';
   if (!variable) {
     logger.error(`${variableName} is not set`);
